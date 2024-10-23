@@ -1,0 +1,23 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 2d-game
+  labels:
+    app: 2d-game
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: 2d-game
+  template:
+    metadata:
+      labels:
+        app: 2d-game
+    spec:
+      containers:
+        - name: ballonappcontainer
+          image: balloncontainer.azurecr.io/balloonpoppinggame:latest
+          imagePullPolicy: Always
+          ports:  # Correct indentation here
+            - containerPort: 80
