@@ -16,8 +16,8 @@ variables:
   dockerfilePath: '$(Build.SourcesDirectory)/dockerfile'
   tag: '$(Build.BuildId)'
 
-  pool:
-  name: 'book'
+pool:
+ name: 'book'
 
 stages:
 - stage: Build
