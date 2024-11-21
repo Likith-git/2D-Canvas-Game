@@ -17,7 +17,7 @@ variables:
   tag: '$(Build.BuildId)'
 
   pool:
-   name: 'book'
+  name: 'book'
 
 stages:
 - stage: Build
@@ -35,3 +35,15 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: '$(Build.SourcesDirectory)/k8s/manifest'
+        Contents: '**'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)/$(ARTIFACT_NAME)'
+        CleanTargetFolder: true
+        OverWrite: true
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'      
